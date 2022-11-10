@@ -32,6 +32,9 @@ function App() {
 
   const handleGoalChange = (teamIndex, teamNr, goals) => {
     console.log("Index:" + teamIndex + " Team Side:" + teamNr + " Goals: " + goals);
+
+    let scoreCopy = [...scoreList]
+
   }
 
   return (
@@ -54,8 +57,7 @@ function App() {
       >
         Clear teams
       </button>
-      <br />
-      <br />
+      {(teams.length > 0) ? <h4>Teams</h4> : <></>}
       <div className='teamsFrame'>
         {teams.map((teamName, index) =>
           <span
@@ -67,7 +69,7 @@ function App() {
           </span>
         )}
       </div>
-      {(teams.length > 1) ? <h3>Matches</h3> : <></>}
+      {(teams.length > 1) ? <h4>Matches</h4> : <></>}
       <Matchups
         teams={teams}
         handleGoalChange={handleGoalChange}
