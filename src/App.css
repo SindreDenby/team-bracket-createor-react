@@ -44,6 +44,8 @@
 
 .matchup {
   font-style: italic;
+  width: 20%;
+  text-align: center;
 }
 
 .goalInput {

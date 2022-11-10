@@ -89,7 +89,9 @@ const Matchups = (props) => {
 
         >
           <GoalInput inpIndex={[index, 0]} handleGoalChange={props.handleGoalChange} />
-          <span className='matchup'>{matchup[0]} - {matchup[1]}</span>
+          <span className='matchup'>{matchup[0]}</span>
+          <span> - </span>
+          <span className='matchup'>{matchup[1]}</span>
           <GoalInput inpIndex={[index, 1]} handleGoalChange={props.handleGoalChange} />
         </div>
       )}
