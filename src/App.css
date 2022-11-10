@@ -42,7 +42,9 @@
 
 }
 
-.matchup {}
+.matchup {
+  font-style: italic;
+}
 
 .inpLeft {
   width: 10%;
