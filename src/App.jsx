@@ -6,7 +6,6 @@ function App() {
 
   const [teams, setTeams] = useState([])
   const [curTeamVal, setCurTeamVal] = useState("")
-  const [matchResults, setMatchResults] = useState([])
   const [scoreList, setScoreList] = useState([])
 
   const handleTeamKeyPress = (event) => {
@@ -30,12 +29,6 @@ function App() {
     setTeams(teams.filter(e => e !== event.target.innerHTML))
   }
 
-  const handleGoalChange = (teamIndex, teamNr, goals) => {
-    console.log("Index:" + teamIndex + " Team Side:" + teamNr + " Goals: " + goals);
-
-    let scoreCopy = [...scoreList]
-
-  }
 
   return (
     <div className="App">
@@ -72,7 +65,8 @@ function App() {
       {(teams.length > 1) ? <h4>Matches</h4> : <></>}
       <Matchups
         teams={teams}
-        handleGoalChange={handleGoalChange}
+        scoreList={scoreList}
+        setScoreList={setScoreList}
       />
 
     </div>
@@ -88,11 +82,19 @@ const Matchups = (props) => {
           key={"machup" + index}
 
         >
-          <GoalInput inpIndex={[index, 0]} handleGoalChange={props.handleGoalChange} />
+          <GoalInput
+            inpIndex={[index, 0]}
+            scoreList={props.scoreList}
+            setScoreList={props.setScoreList}
+          />
           <span className='matchup'>{matchup[0]}</span>
           <span> - </span>
           <span className='matchup'>{matchup[1]}</span>
-          <GoalInput inpIndex={[index, 1]} handleGoalChange={props.handleGoalChange} />
+          <GoalInput
+            inpIndex={[index, 1]}
+            scoreList={props.scoreList}
+            setScoreList={props.setScoreList}
+          />
         </div>
       )}
     </div>
@@ -100,17 +102,20 @@ const Matchups = (props) => {
 }
 
 const GoalInput = (props) => {
+  const updateGoalCount = (event) => {
+    let scoreCopy = [...props.scoreList]
+
+
+  }
+
   return (
     <input
       type={"number"}
       placeholder={"Mål"}
       className={"goalInput"}
-      onChange={(event) => {
-        props.handleGoalChange(...props.inpIndex, event.target.value)
-      }}
+      onChange={updateGoalCount}
     />
   )
-
 }
 
 function createMachups(teams) {
