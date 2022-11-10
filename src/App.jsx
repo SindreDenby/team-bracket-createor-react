@@ -7,6 +7,7 @@ function App() {
   const [teams, setTeams] = useState([])
   const [curTeamVal, setCurTeamVal] = useState("")
   const [matchResults, setMatchResults] = useState([])
+  const [scoreList, setScoreList] = useState([])
 
   const handleTeamKeyPress = (event) => {
     if (event.key === "Enter") {
@@ -27,6 +28,10 @@ function App() {
 
   const handleTeamClick = (event) => {
     setTeams(teams.filter(e => e !== event.target.innerHTML))
+  }
+
+  const handleGoalChange = (teamIndex, teamNr, goals) => {
+    console.log("Index:" + teamIndex + " Team Side:" + teamNr + " Goals: " + goals);
   }
 
   return (
@@ -62,32 +67,46 @@ function App() {
           </span>
         )}
       </div>
-      <h3>Matches</h3>
-      <div className='scoreFrame'>
-        {createMachups(teams).map((matchup, index) =>
-          <div
-            className='matchBox'
-            key={"machup" + index}
-
-          >
-            <input
-              type={"number"}
-              placeholder={"Mål"}
-              className={"inpLeft"}
-            />
-            <span className='matchup'>{matchup[0]} - {matchup[1]}</span>
-            <input
-              type={"number"}
-              placeholder={"Mål"}
-              className={"inpRight"}
-            />
-          </div>
-
-        )}
-      </div>
+      {(teams.length > 1) ? <h3>Matches</h3> : <></>}
+      <Matchups
+        teams={teams}
+        handleGoalChange={handleGoalChange}
+      />
 
     </div>
   )
+}
+
+const Matchups = (props) => {
+  return (
+    <div className='scoreFrame'>
+      {createMachups(props.teams).map((matchup, index) =>
+        <div
+          className='matchBox'
+          key={"machup" + index}
+
+        >
+          <GoalInput inpIndex={[index, 0]} handleGoalChange={props.handleGoalChange} />
+          <span className='matchup'>{matchup[0]} - {matchup[1]}</span>
+          <GoalInput inpIndex={[index, 1]} handleGoalChange={props.handleGoalChange} />
+        </div>
+      )}
+    </div>
+  )
+}
+
+const GoalInput = (props) => {
+  return (
+    <input
+      type={"number"}
+      placeholder={"Mål"}
+      className={"goalInput"}
+      onChange={(event) => {
+        props.handleGoalChange(...props.inpIndex, event.target.value)
+      }}
+    />
+  )
+
 }
 
 function createMachups(teams) {
