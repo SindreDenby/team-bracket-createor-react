@@ -1,6 +1,10 @@
+body::-webkit-scrollbar {
+  display: none;
+}
+
 .App {
   text-align: center;
-  user-select: none;
+  /* user-select: none; */
 }
 
 .teamsFrame {
@@ -25,7 +29,7 @@
   /* padding-top: 1%; */
   margin: auto;
   width: 70%;
-  text-align: left;
+  margin-bottom: 1em;
 }
 
 .matchBox {
